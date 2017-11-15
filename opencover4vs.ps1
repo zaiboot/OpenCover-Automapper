@@ -16,7 +16,9 @@ Function GetFilter($inclusive, $exclusive) {
     foreach ($i in $exclusive) {
         $filters +="-[$i]* "
     }
+    $filters +="+[*]*"
     $filters +="-[*Moq*]*"
+    $filters +="-[*Test*]*"
     return $filters;
 }
 
@@ -29,7 +31,7 @@ $mstestPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\Community\C
 $dotnetPath = "$env:ProgramFiles\dotnet\dotnet.exe"
 $netcoreapp = 'netcoreapp2.0'
 
-$NamespaceInclusiveFilters = @(,'*') # asterix means inlude all namespaces (which pdb found)
+$NamespaceInclusiveFilters = @() # asterix means inlude all namespaces (which pdb found)
 $BuildNamespaceExclusiveFilters = $true # For core - test project's default namespace; For classic - namespaces where test project's types defined
 
 $testClassicProjects=$false
